@@ -1,0 +1,42 @@
+﻿@model List<Teacher>
+
+<meta charset="UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<div class="card" id="teacherDetails">
+    <div class="col-sm-12 col-lg-12 col-xl-12">
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="bg-primary">
+                    <tr>
+                        <th scope="col">Öğretmen Adı</th>
+                        <th scope="col">Öğretmen Soyadı</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Şifre</th>
+                        <th scope="col">Ders</th>
+                        <th scope="col">Ekstra Ders</th>
+                        <th scope="col">Resim</th>
+                    </tr>
+                </thead>
+                <tbody id="tableClasses">
+                    @foreach (var teacher in Model)
+                    {
+                        <tr>
+                            <td>@teacher.Name</td>
+                            <td>@teacher.Surname</td>
+                            <td>@teacher.Email</td>
+                            <td id="passwordChar">@teacher.Password</td>
+                            <td>@teacher.Lesson?.Name</td>
+                            <td>@(teacher.Lesson?.IsExtra == 1 ? "Evet" : "Hayır")</td>
+                            <td>@(teacher.Image != null ? teacher.Image : "-")</td>
+                            <td class="d-flex justify-content-end">
+                                <button class="btn btn-danger deleteBtn" id="deleteBtn" type="button" data-url="Teacher/DeleteTeacher" data-id="@teacher.TeacherId">Sil</button>
+                                <button class="btn btn-primary" id="teacherDetailBtn" data-teacher-id="@teacher.TeacherId" data-listtype="Teacher" type="button">Detay</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

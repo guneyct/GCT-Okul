@@ -1,0 +1,73 @@
+﻿@model dynamic
+
+<div class="container-fluid">
+    <div class="edit-profile">
+        <div class="row">
+            <div class="col-xl-4">
+                <div class="card">
+                    <div class="card-header pb-0">
+                        <h4 class="card-title mb-0">My Profile</h4>
+                        <div class="card-options"><a class="card-options-collapse" href="#" data-bs-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a><a class="card-options-remove" href="#" data-bs-toggle="card-remove"><i class="fe fe-x"></i></a></div>
+                    </div>
+                    <div class="card-body">
+                        <form asp-action="UpdateCredentials" asp-controller="Home" method="post">
+                            <div class="row mb-2">
+                                <div class="profile-title">
+                                    <div class="media">
+                                        <img class="img-70 rounded-circle" alt="" src="../assets/images/user/7.jpg" id="image">
+                                        <div class="media-body">
+                                            <h3 class="mb-1 f-20 txt-primary" id="mediaName">@Model.Name @Model.Surname</h3>
+                                            <p class="f-12" id="mediaType">DESIGNER</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Email</label>
+                                <input class="form-control" placeholder="your-email@domain.com" id="mail" name="Email" value="@Model.Email">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Password</label>
+                                <input class="form-control" type="password" value="password" id="password" name="Password" value="@Model.Password">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Image</label>
+                                <input class="form-control" placeholder="http://Uplor .com" id="imageHolder" name="Image" value="@Model.Image">
+                            </div>
+                            <div class="form-footer">
+                                <button class="btn btn-primary btn-block" id="profileSaveButton">Kaydet</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-8">
+                <form class="card" asp-action="UpdateProfile" asp-controller="Home" method="post">
+                    <div class="card-header pb-0">
+                        <h4 class="card-title mb-0">Edit Profile</h4>
+                        <div class="card-options"><a class="card-options-collapse" href="#" data-bs-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a><a class="card-options-remove" href="#" data-bs-toggle="card-remove"><i class="fe fe-x"></i></a></div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">First Name</label>
+                                    <input class="form-control" type="text" placeholder="Name" id="name" name="Name" value="@Model.Name">
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Last Name</label>
+                                    <input class="form-control" type="text" placeholder="Last Name" id="surname" name="Surname" value="@Model.Surname">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-end">
+                        <button class="btn btn-primary" type="submit">Update Profile</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

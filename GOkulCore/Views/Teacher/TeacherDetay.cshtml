@@ -1,0 +1,121 @@
+﻿@model TeacherDetails
+
+@{
+    <div class="row">
+        <div class="col-xl-5">
+            <div class="card">
+                <form data-url="/Teacher/UpdateTeacher" method="post" data-id=${selectedId} class="col-xl-13" id="UpdateTeacher">
+                    <div class="edit-profile">
+                        <div class="card-header pb-0">
+                            <h4 class="card-title mb-0">Güncelle</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <input class="form-control" style="display:none" type="text" placeholder="TeacherId" id="TeacherId" name="TeacherId" value="@Model.TeacherId">
+                                <div class="col-sm-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Öğretmen Adı</label>
+                                        <input class="form-control" type="text" placeholder="Name" id="name" name="Name" value="@Model.Name">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Öğretmen Soyadı</label>
+                                        <input class="form-control" type="text" placeholder="Surname" id="Surname" name="Surname" value="@Model.Surname">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Mail</label>
+                                        <input class="form-control" type="text" placeholder="Email" id="Email" name="Email" value="@Model.Email">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Şifre</label>
+                                        <input class="form-control" type="text" placeholder="Password" id="Password" name="Password" value="@Model.Password">
+                                    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                    <div class="mb-3">
+                                        <label class="form-label">Ders</label>
+                                        <select class="form-select" name="LessonId">
+                                            @foreach (var lesson in Model.Lessons)
+                                            {
+                                                var _selected = lesson.LessonId == Model.TeacherLessonId ? "selected" : "";
+                                                <option value="@lesson.LessonId" _selected>
+                                                    @lesson.Name
+                                                </option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer text-end">
+                            <button class="btn btn-primary" type="submit">Kaydet</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-xl-6">
+            <div class="card">
+                <div class="col-sm-12 col-lg-12 col-xl-12">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="bg-primary">
+                                <tr>
+                                    <th scope="col">Öğrenci Adı</th>
+                                    <th scope="col">Öğrenci Sınıfı</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableClasses">
+                                @foreach (var student in Model.Students)
+                                {
+                                    <tr>
+                                        <th>@student.Name</th>
+                                        <th>@student.ClassName</th>
+                                        <th class="d-flex justify-content-end">
+                                            <button class="btn btn-primary" id="teacherDetailBtn" type="button" data-student-id="@student.StudentId" data-listtype="Student">Detay</button>
+                                        </th>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-6">
+            <div class="card">
+                <div class="col-sm-12 col-lg-12 col-xl-12">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="bg-primary">
+                                <tr>
+                                    <th scope="col">Ders Adı</th>
+                                    <th scope="col">Ders Sınıfı</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableClasses">
+                                @foreach (var lesson in Model.Lessons)
+                                {
+                                    <tr>
+                                        <th>@lesson.Name</th>
+                                        <th>@(lesson.IsExtra == 1 ? "Ekstra Ders" : lesson.ClassName)</th>
+                                        <th class="d-flex justify-content-end">
+                                            <button class="btn btn-primary" id="teacherDetailBtn" type="button" data-student-id="@lesson.LessonId" data-listtype="Student">Detay</button>
+                                        </th>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

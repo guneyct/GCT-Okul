@@ -1,0 +1,188 @@
+﻿@model dynamic
+
+<div class="row">
+    <!-- Sınıf Güncelleme Kartı -->
+    <div class="col-xl-5">
+        <div class="card">
+            <form data-url="/Home/UpdateStudent" id="UpdateStudent" data-id=${itemId} method="post" class="col-xl-13">
+                <div class="edit-profile">
+                    <div class="card-header pb-0">
+                        <h4 class="card-title mb-0">Güncelle</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <input class="form-control" style="display:none" type="text" placeholder="StudentId" id="StudentId" name="StudentId" value="@Model.StudentId">
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Öğrenci Adı</label>
+                                    <input class="form-control" type="text" placeholder="Name" id="name" name="Name" value="@Model.Name">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Öğrenci Soyadı</label>
+                                    <input class="form-control" type="text" placeholder="Surname" id="name" name="Surname" value="@Model.Surname">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Mail</label>
+                                    <input class="form-control" type="text" placeholder="Mail" id="mail" name="Email" value="@Model.Email">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Şifre</label>
+                                    <input class="form-control" type="text" placeholder="Password" id="pass" name="Password" value="@Model.Password">
+                                </div>
+                            </div>
+                            <div class="col-sm-5">
+                                <div class="mb-3">
+                                    <label class="form-label">Ekstra Ders</label>
+                                    <select class="form-select" name="ExtraLessonId" id="extra-lesson">
+                                        @foreach (var extraLesson in Model.ExtraLessons)
+                                        {
+                                            @if (extraLesson.LessonId == Model.StudentExtraLesson)
+                                            {
+                                                <option value="@extraLesson.LessonId" selected>
+                                                    @extraLesson.Name
+                                                </option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@extraLesson.LessonId">
+                                                    @extraLesson.Name
+                                                </option>
+                                            }
+
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-5">
+                                <div class="mb-3">
+                                    <label class="form-label">Sınıf</label>
+                                    <select class="form-select" name="ClassId" id="class-id">
+                                        @foreach (var _class in Model.AllClasses)
+                                        {
+                                            var _selected = _class.ClassId == Model.ClassId ? "selected" : "";
+                                            <option value="@_class.ClassId" _selected>
+                                                @_class.Name
+                                            </option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-end">
+                        <button class="btn btn-primary" type="submit">Kaydet</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Ders Tablosu Kartı -->
+    <div class="col-xl-7">
+        <div class="card">
+            <div class="col-sm-12 col-lg-12 col-xl-12">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class="bg-primary">
+                            <tr>
+                                <th scope="col">Ders Adı</th>
+                                <th scope="col">Ekstra</th>
+                                <th scope="col">Ders Notu</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableClasses">
+                            @foreach (var lesson in Model.Lessons)
+                            {
+                                <tr>
+                                    <td>@lesson.Name</td>
+                                    <td>@(lesson.IsExtra == 1 ? "Evet" : "Hayır")</td>
+                                    <td>@lesson.Grade</td>
+                                    <td class="d-flex justify-content-end">
+                                        <button class="btn btn-primary" id="studentDetailBtn" type="button" data-lesson-id="@lesson.LessonId" data-listtype="Lesson">Detay</button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Öğretmen Tablosu Kartı -->
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="col-sm-12 col-lg-12 col-xl-12">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class="bg-primary">
+                            <tr>
+                                <th scope="col">Öğretmen Adı</th>
+                                <th scope="col">Öğretmen Dersi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableClasses">
+                            @foreach (var teacher in Model.Teachers)
+                            {
+                                <tr>
+                                    <td>@teacher.Name</td>
+                                    <td>@teacher.LessonName</td>
+                                    <td class="d-flex justify-content-end">
+                                        <button class="btn btn-primary" id="studentDetailBtn" type="button" data-teacher-id="@teacher.TeacherId" data-listtype="Teacher">Detay</button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ekstra Ders Tablosu Kartı -->
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="col-sm-12 col-lg-12 col-xl-12">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class="bg-primary">
+                            <tr>
+                                <th scope="col">Ekstra Ders Adı</th>
+                                <th scope="col">Ekstra</th>
+                                <th scope="col">Ekstra Ders Notu</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableClasses">
+                            @if (@Model.ExtraGrades != null)
+                            {
+                                <tr>
+                                    <td>@Model.ExtraGrades.Name</td>
+                                    <td>@(Model.ExtraGrades.IsExtra == 1 ? "Evet" : "Hayır")</td>
+                                    <td>@Model.ExtraGrades.LessonGrade</td>
+                                    <td class="d-flex justify-content-end">
+                                        <button class="btn btn-primary" id="studentDetailBtn" type="button" data-lesson-id="@Model.ExtraGrades.LessonId" data-listtype="Lesson">Detay</button>
+                                    </td>
+                                </tr>
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

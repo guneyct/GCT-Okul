@@ -1,0 +1,122 @@
+﻿@model ClassDetails
+
+@{
+    <div class="row">
+        <!-- Form -->
+        <form id="UpdateClass" data-url="/Class/UpdateClass" class="col-sm-4">
+            <div class="card">
+                <input style="display:none" class="form-control" type="number" placeholder="ClassId" id="ClassId" name="ClassId" value="@Model.ClassId">
+                <div class="edit-profile">
+                    <div class="card-header pb-0">
+                        <h4 class="card-title mb-0">Güncelle</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="mb-3">
+                                    <label class="form-label">Sınıf Adı</label>
+                                    <input class="form-control" type="text" placeholder="Name" id="Name" name="Name" value="@Model.Name">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-end">
+                        <button class="btn btn-primary" type="submit">Kaydet</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <!-- Tables Section -->
+        <div class="col-sm-8">
+            <!-- Lessons Table -->
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="bg-primary">
+                                    <tr>
+                                        <th scope="col">Ders Adı</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tableClasses">
+                                    @foreach (var lesson in Model.Lessons)
+                                    {
+                                        <tr>
+                                            <td>@lesson.Name</td>
+                                            <td class="d-flex justify-content-end">
+                                                <button class="btn btn-primary" id="classDetailBtn" type="button" data-lesson-id="@lesson.LessonId" data-listtype="Lesson">Detay</button>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Teachers Table -->
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="bg-primary">
+                                    <tr>
+                                        <th scope="col">Öğretmen Adı</th>
+                                        <th scope="col">Öğretmen Dersi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tableClasses">
+                                    @foreach (var teacher in Model.Teachers)
+                                    {
+                                        <tr>
+                                            <td>@teacher.Name</td>
+                                            <td>@teacher.LessonName</td>
+                                            <td class="d-flex justify-content-end">
+                                                <button class="btn btn-primary" id="classDetailBtn" type="button" data-teacher-id="@teacher.TeacherId" data-listtype="Teacher">Detay</button>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Students Table -->
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="bg-primary">
+                                    <tr>
+                                        <th scope="col">Öğrenci Adı</th>
+                                        <th scope="col">Öğrenci Sınıfı</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tableClasses">
+                                    @foreach (var student in Model.Students)
+                                    {
+                                        <tr>
+                                            <td>@student.Name</td>
+                                            <td>@student.ClassName</td>
+                                            <td class="d-flex justify-content-end">
+                                                <button class="btn btn-primary" id="classDetailBtn" type="button" data-student-id="@student.StudentId" data-listtype="Student">Detay</button>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}

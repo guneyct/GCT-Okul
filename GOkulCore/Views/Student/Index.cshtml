@@ -1,0 +1,42 @@
+﻿@model dynamic
+
+<meta charset="UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<div class="card" id="studentDetails">
+    <div class="col-sm-12 col-lg-12 col-xl-12">
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="bg-primary">
+                    <tr>
+                        <th scope="col">Adı</th>
+                        <th scope="col">Soyadı</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Şifre</th>
+                        <th scope="col">Ekstra Ders</th>
+                        <th scope="col">Resim</th>
+                        <th scope="col">Sınıf</th>
+                    </tr>
+                </thead>
+                <tbody id="tableClasses">
+                    @foreach (var student in Model)
+                    {
+                        <tr>
+                            <td>@student.Name</td>
+                            <td>@student.Surname</td>
+                            <td>@student.Email</td>
+                            <td id="passwordChar">@student.Password</td>
+                            <td>@student.ExtraLessonName</td>
+                            <td>@student.Image</td>
+                            <td>@student.Class?.Name</td>
+                            <td class="d-flex justify-content-end">
+                                <button class="btn btn-danger deleteBtn" id="deleteBtn" type="button" data-url="Student/DeleteStudent" data-id="@student.StudentId">Sil</button>
+                                <button class="btn btn-primary" id="studentDetailBtn" data-listtype="Student" data-student-id="@student.StudentId" type="button">Detay</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

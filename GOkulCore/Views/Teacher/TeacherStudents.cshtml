@@ -1,0 +1,35 @@
+﻿@model dynamic
+
+<meta charset="UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<div class="card" id="teacherStudentsDetails">
+    <div class="col-sm-12 col-lg-12 col-xl-12">
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="bg-primary">
+                    <tr>
+                        <th scope="col">Adı</th>
+                        <th scope="col">Soyadı</th>
+                        <th scope="col">Sınıf</th>
+                        <th scope="col">Not</th>
+                    </tr>
+                </thead>
+                <tbody id="tableClasses">
+                    @foreach (var item in Model.Students)
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td>@item.Surname</td>
+                            <td>@item.ClassName</td>
+                            <td>@(item.LessonGrade > 0 ? item.LessonGrade : "-")</td>
+                            <td class="d-flex justify-content-end">
+                                <button class="btn btn-primary" id="teacherStudentsDetailBtn" data-listtype="Student" data-student-id="@item.StudentId" data-lesson-id="@Model.User.LessonId" type="button">Detay</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

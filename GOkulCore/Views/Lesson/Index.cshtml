@@ -1,0 +1,35 @@
+﻿@model List<Lesson>
+
+<meta charset="UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+@{
+    <div class="card" id="lessonDetails">
+        <div class="col-sm-12 col-lg-12 col-xl-12">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="bg-primary" id="tableHead">
+                        <tr>
+                            <th scope="col">Ders Adı</th>
+                            <th scope="col">Ekstra</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableClasses">
+                        @foreach (var lesson in Model)
+                        {
+                            <tr>
+                                <td>@lesson.Name</td>
+                                <td>@(lesson.IsExtra == 1 ? "Evet" : "Hayır")</td>
+
+                                <td class="d-flex justify-content-end">
+                                    <button class="btn btn-danger deleteBtn" id="deleteBtn" type="button" data-url="Lesson/DeleteLesson" data-id="">Sil</button>
+                                    <button class="btn btn-primary ListDetailBtn" id="lessonDetailBtn" type="button" data-listtype="Lesson" data-lesson-id="@lesson.LessonId" data-id="@lesson.LessonId" data-url="/Lesson/LessonDetay">Detay</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}

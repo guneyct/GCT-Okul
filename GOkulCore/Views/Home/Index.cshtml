@@ -1,0 +1,151 @@
+﻿@model dynamic
+
+<meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="~/assets/js/popper.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        animateCountUp('classCount', @Model.ClassesCount, 2000);
+        animateCountUp('lessonCount', @Model.LessonsCount, 2000);
+        animateCountUp('teacherCount', @Model.TeachersCount, 2000);
+        animateCountUp('studentCount', @Model.StudentsCount, 2000);
+    });
+
+    function animateCountUp(elementId, endValue, duration) {
+        const element = document.getElementById(elementId);
+        if (element != null) {
+            let startValue = 0;
+            const stepTime = Math.abs(Math.floor(duration / (endValue - startValue)));
+            const timer = setInterval(function () {
+                startValue++;
+                element.textContent = startValue;
+                if (startValue >= endValue) {
+                    clearInterval(timer);
+                    startValue = 0;
+                }
+            }, stepTime);
+        }
+    }
+</script>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 id="classCount" class="display-4">0</h5>
+                    <p class="card-text">Toplam Sınıf Sayısı</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 id="lessonCount" class="display-4">0</h5>
+                    <p class="card-text">Toplam Ders Sayısı</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 id="teacherCount" class="display-4">0</h5>
+                    <p class="card-text">Toplam Öğretmen Sayısı</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 id="studentCount" class="display-4">0</h5>
+                    <p class="card-text">Toplam Öğrenci Sayısı</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="col-sm-12 col-lg-12 col-xl-12">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="bg-primary" id="tableHead">
+                        <tr>
+                            <td>Sınıf Adı</td>
+                            <td>Ders Sayısı</td>
+                            <td>Öğretmen Sayısı</td>
+                            <td>Öğrenci Sayısı</td>
+                        </tr>
+                    </thead>
+                    <tbody id="classesCountTable">
+                        @foreach (var classData in Model.ClassesData)
+                        {
+                            <tr>
+                                <td>@classData.ClassName</td>
+                                <td>@(classData.LessonCount == 0 ? "-" : classData.LessonCount)</td>
+                                <td>@(classData.TeacherCount == 0 ? "-" : classData.TeacherCount)</td>
+                                <td>@(classData.StudentCount == 0 ? "-" : classData.StudentCount)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="col-sm-12 col-lg-12 col-xl-12">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="bg-primary" id="tableHead">
+                        <tr>
+                            <td>Ders Adı</td>
+                            <td>Sınıf Adı</td>
+                            <td>Öğretmen Adı</td>
+                            <td>Öğrenci Sayısı</td>
+                        </tr>
+                    </thead>
+                    <tbody id="lessonCountTable">
+                        @foreach (var lessonData in Model.LessonsData)
+                        {
+                            <tr>
+                                <td>@lessonData.LessonName</td>
+                                <td>@lessonData.ClassName</td>
+                                <td>@lessonData.TeacherName</td>
+                                <td>@(lessonData.StudentCount == 0 ? "-" : lessonData.StudentCount)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="col-sm-12 col-lg-12 col-xl-12">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="bg-primary" id="tableHead">
+                        <tr>
+                            <td>Ekstra Ders Adı</td>
+                            <td>Öğretmen Adı</td>
+                            <td>Öğrenci Sayısı</td>
+                        </tr>
+                    </thead>
+                    <tbody id="extraLessonCountTable">
+                        @foreach (var extraLessonData in Model.LessonsData)
+                        {
+                            <tr>
+                                <td>@extraLessonData.LessonName</td>
+                                <td>@extraLessonData.TeacherName</td>
+                                <td>@(extraLessonData.StudentCount == 0 ? "-" : extraLessonData.StudentCount)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

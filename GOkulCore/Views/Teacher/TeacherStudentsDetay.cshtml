@@ -1,0 +1,100 @@
+﻿@model dynamic
+
+<div class="row">
+    <div class="col-xl-5">
+        <div class="card">
+            <form data-url="/Teacher/UpdateGrade" id="UpdateGrade" method="post" class="col-xl-13">
+                <div class="edit-profile">
+                    <div class="card-header pb-0">
+                        <h4 class="card-title mb-0">@Model.LessonName</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <input class="form-control" style="display:none" type="number" placeholder="StudentId" id="StudentId" name="StudentId" value="@Model.StudentId">
+                            <input class="form-control" style="display:none" type="number" placeholder="LessonId" id="LessonId" name="LessonId" value="@Model.LessonId">
+                            <input class="form-control" style="display:none" type="number" placeholder="GradeId" id="GradeId" name="GradeId" value="@Model.GradeId">
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Öğrenci Ders Notu</label>
+                                    <input class="form-control" type="number" min=0 max=100 placeholder="LessonGrade" id="LessonGrade" name="LessonGrade" value="@Model.Grade">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-end">
+                        <button class="btn btn-primary" type="submit">Kaydet</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="col-sm-12 col-lg-12 col-xl-12">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class="bg-primary">
+                            <tr>
+                                <th scope="col">Ders Adı</th>
+                                <th scope="col">Öğretmen Adı</th>
+                                <th scope="col">Ekstra</th>
+                                <th scope="col">Not</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableClasses">
+                            @foreach (var studentLesson in Model.StudentLessons)
+                            {
+                                <tr>
+                                    <td>@studentLesson.Name</td>
+                                    <td>@studentLesson.TeacherName</td>
+                                    <td>@(studentLesson.IsExtra == 1 ? "Evet" : "Hayır")</td>
+                                    <td>@studentLesson.LessonGrade</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="col-sm-12 col-lg-12 col-xl-12">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class="bg-primary">
+                            <tr>
+                                <th scope="col">Ekstra Ders Adı</th>
+                                <th scope="col">Öğretmen Adı</th>
+                                <th scope="col">Ekstra</th>
+                                <th scope="col">Not</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableExtraClasses">
+                            @if (Model.StudentExtraLesson != null)
+                            {
+                                <tr>
+                                    <td>@Model.StudentExtraLesson.Name</td>
+                                    <td>@Model.StudentExtraLesson.TeacherName</td>
+                                    <td>@(Model.StudentExtraLesson.IsExtra == 1 ? "Evet" : "Hayır")</td>
+                                    <td>@Model.StudentExtraLesson.LessonGrade</td>
+                                </tr>
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

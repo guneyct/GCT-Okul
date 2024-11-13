@@ -1,0 +1,282 @@
+﻿@model dynamic
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).on("submit", "#AddClass", function (e) {
+        var form = $(this).serialize();
+        var url = $(this).data("url");
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: form,
+            success: function (response) {
+                alert("Eklendi!");
+                window.location.href = "/Home/Classes";
+            },
+            error: function (error) {
+                alert(error.responseText);
+            }
+        });
+    })
+
+    $(document).on("submit", "#AddLesson", function (e) {
+        var form = $(this).serialize();
+        var url = $(this).data("url");
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: form,
+            success: function (response) {
+                alert("Eklendi!");
+                window.location.href = "/Home/Lessons";
+            },
+            error: function (error) {
+                alert(error.responseText);
+            }
+        });
+    })
+
+    $(document).on("submit", "#AddTeacher", function (e) {
+        var form = $(this).serialize();
+        var url = $(this).data("url");
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: form,
+            success: function (response) {
+                alert("Eklendi!");
+                window.location.href = "/Home/Teachers";
+            },
+            error: function (error) {
+                alert(error.responseText);
+            }
+        });
+    })
+
+    $(document).on("submit", "#AddStudent", function (e) {
+        var form = $(this).serialize();
+        var url = $(this).data("url");
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: form,
+            success: function (response) {
+                alert("Eklendi!");
+                window.location.href = "/Home/Students";
+            },
+            error: function (error) {
+                alert(error.responseText);
+            }
+        });
+    })
+</script>
+
+
+<div id="recordForm" class="card">
+    @switch (ViewBag.SelectedType)
+    {
+        case "Class":
+            <form data-url="/Class/AddClass" id="AddClass" method="post" class="col-xl-12">
+                <div class="edit-profile">
+                    <div class="card-header pb-0">
+                        <h4 class="card-title mb-0">Sınıf Ekle</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <input class="form-control" style="display:none" type="text" placeholder="ClassId" id="ClassId" name="ClassId" value="0">
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Sınıf Adı</label>
+                                    <input class="form-control" type="text" placeholder="Name" id="name" name="Name">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-end">
+                        <button class="btn btn-primary" type="submit">Sınıf Ekle</button>
+                    </div>
+                </div>
+            </form>
+            break;
+        case "Lesson":
+            <form data-url="/Lesson/AddLesson" id="AddLesson" method="post" class="col-xl-12">
+                <div class="edit-profile">
+                    <div class="card-header pb-0">
+                        <h4 class="card-title mb-0">Ders Ekle</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <input class="form-control" style="display:none" type="text" placeholder="LessonId" id="LessonId" name="LessonId" value="0">
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Ders Adı</label>
+                                    <input class="form-control" type="text" placeholder="Name" id="name" name="Name">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Seçilen Sınıf</label>
+                                    <select class="form-select" name="IsExtra">
+                                        <option value="0" selected>
+                                            -
+                                        </option>
+
+                                        @foreach (var _class in Model.Classes)
+                                        {
+                                            <option value="@_class.ClassId">
+                                                @_class.Name
+                                            </option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-end">
+                        <button class="btn btn-primary" type="submit">Ders Ekle</button>
+                    </div>
+                </div>
+            </form>
+            break;
+        case "Teacher":
+            <form data-url="/Teacher/AddTeacher" id="AddTeacher" method="post" class="col-xl-12">
+                <div class="edit-profile">
+                    <div class="card-header pb-0">
+                        <h4 class="card-title mb-0">Öğretmen Ekle</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <input class="form-control" style="display:none" type="text" placeholder="TeacherId" id="TeacherId" name="TeacherId" value="0">
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Öğretmen Adı</label>
+                                    <input class="form-control" type="text" placeholder="Name" name="Name">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Öğretmen Soyadı</label>
+                                    <input class="form-control" type="text" placeholder="Surname" name="Surname">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Öğretmen Email</label>
+                                    <input class="form-control" type="email" placeholder="Email@teacher.com" name="Email">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Öğretmen Şifre</label>
+                                    <input class="form-control" type="password" placeholder="Password" name="Password">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Ders</label>
+                                    <select class="form-select" name="LessonId">
+                                        @foreach (var lesson in Model.Lessons)
+                                        {
+                                            <option value="@lesson.LessonId">
+                                                @lesson.Name
+                                            </option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Sınıf</label>
+                                    <select class="form-select" name="ClassId">
+                                        @foreach (var _class in Model.Classes)
+                                        {
+                                            <option value="@_class.ClassId">
+                                                @_class.Name
+                                            </option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-end">
+                        <button class="btn btn-primary" type="submit">Öğretmen Ekle</button>
+                    </div>
+                </div>
+            </form>
+            break;
+        case "Student":
+            <form data-url="/Student/AddStudent" id="AddStudent" method="post" class="col-xl-12">
+                <div class="edit-profile">
+                    <div class="card-header pb-0">
+                        <h4 class="card-title mb-0">Öğrenci Ekle</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <input class="form-control" style="display:none" type="text" placeholder="TeacherId" id="TeacherId" name="TeacherId" value="0">
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Öğrenci Adı</label>
+                                    <input class="form-control" type="text" placeholder="Name" name="Name">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Öğrenci Soyadı</label>
+                                    <input class="form-control" type="text" placeholder="Surname" name="Surname">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Öğrenci Email</label>
+                                    <input class="form-control" type="email" placeholder="Email@student.com" name="Email">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Öğrenci Şifre</label>
+                                    <input class="form-control" type="password" placeholder="Password" name="Password">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Ekstra Ders</label>
+                                    <select class="form-select" name="ExtraLessonId">
+                                        <option value="0">
+                                            Ekstra Ders
+                                        </option>
+
+                                        @foreach (var lesson in Model.ExtraLessons)
+                                        {
+                                            <option value="@lesson.LessonId">
+                                                @lesson.Name
+                                            </option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Sınıf</label>
+                                    <select class="form-select" name="ClassId">
+                                        @foreach (var _class in Model.Classes)
+                                        {
+                                            <option value="@_class.ClassId">
+                                                @_class.Name
+                                            </option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-end">
+                        <button class="btn btn-primary" type="submit">Öğrenci Ekle</button>
+                    </div>
+                </div>
+            </form>
+            break;
+    }
+</div>

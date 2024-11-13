@@ -1,0 +1,108 @@
+﻿@model dynamic
+
+<div class="row">
+    <div class="col-xl-5">
+        <div class="card">
+            <form data-url="/Student/UpdateExtra" id="UpdateExtra" method="post" class="col-xl-13">
+                <div class="edit-profile">
+                    <div class="card-header pb-0">
+                        <h4 class="card-title mb-0">Ekstra Ders Seçimi</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <input class="form-control" style="display:none" type="number" placeholder="StudentId" id="StudentId" name="StudentId" value="@Model.StudentId">
+                            <input class="form-control" style="display:none" type="number" placeholder="LessonId" id="LessonId" name="LessonId" value="@Model.LessonId">
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Ekstra Ders</label>
+                                    <select class="form-select" name="ExtraLessonId" id="extra-lesson-id">
+                                        @foreach (var extraLesson in Model.AllExtraLessons)
+                                        {
+                                            if (extraLesson.LessonId == Model.ExtraLessonId)
+                                            {
+                                                <option value="@extraLesson.LessonId" selected>
+                                                    extraLesson.Name
+                                                </option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@extraLesson.LessonId">
+                                                    extraLesson.Name
+                                                </option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-end">
+                        <button class="btn btn-primary" type="submit">Kaydet</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Ders Tablosu Kartı -->
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="col-sm-12 col-lg-12 col-xl-12">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class="bg-primary">
+                            <tr>
+                                <th scope="col">Ders Adı</th>
+                                <th scope="col">Öğretmen Adı</th>
+                                <th scope="col">Ekstra</th>
+                                <th scope="col">Not</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableClasses">
+                            @foreach (var item in Model.StudentLessons)
+                            {
+                                <tr>
+                                    <td>@item.Name</td>
+                                    <td>@item.teacherName</td>
+                                    <td>@(item.IsExtra == 1 ? "Evet" : "Hayır")</td>
+                                    <td>@item.LessonGrade</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ekstra Ders Tablosu Kartı -->
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="col-sm-12 col-lg-12 col-xl-12">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class="bg-primary">
+                            <tr>
+                                <th scope="col">Ekstra Ders Adı</th>
+                                <th scope="col">Öğretmen Adı</th>
+                                <th scope="col">Ekstra</th>
+                                <th scope="col">Not</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableExtraClasses">
+                            @foreach (var item in Model.StudentExtraLesson)
+                            {
+                                <tr>
+                                    <td>@item.Name</td>
+                                    <td>@item.teacherName</td>
+                                    <td>@(item.IsExtra == 1 ? "Evet" : "Hayır")</td>
+                                    <td>@item.LessonGrade</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

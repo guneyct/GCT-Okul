@@ -1,0 +1,30 @@
+﻿@model dynamic
+
+<meta charset="UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<div class="card" id="detayCard">
+    <div class="col-sm-12 col-lg-12 col-xl-12">
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="bg-primary" id="tableHead">
+                    <tr>
+                        <th scope="col">Sınıf Adı</th>
+                    </tr>
+                </thead>
+                <tbody id="tableClasses">
+                    @foreach (var item in Model.Classes)
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td class="d-flex justify-content-end">
+                                <button class="btn btn-danger deleteBtn" id="deleteBtn" type="button" data-url="Class/DeleteClass" data-id="@item.ClassId">Sil</button>
+                                <button class="btn btn-primary" id="classDetailBtn" type="button" data-class-id="@item.ClassId" data-listtype="Class">Detay</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
